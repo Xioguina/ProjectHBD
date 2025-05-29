@@ -1,1 +1,1561 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>TO livia</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+body {
+  background: #0f0f0f;
+  color: #f9f9f9;
+  font-family: 'Noto Serif TC', serif;
+  margin: 0;
+}
 
+/* 通用按鈕樣式 */
+.next-intro-btn {
+    display: block;
+    margin: 2rem auto; /* ⬅️ 這是重點：讓它水平置中 */
+     margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  min-width: 200px;
+  border: 0;
+  border-radius: 0.25rem;
+  background-color: #6200ee;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: background-color 400ms ease-in-out;
+  padding: 10px 20px;
+  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+.next-intro-btn:hover { background-color: #6e08ff; }
+.next-intro-btn .ripple {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  animation: ripple-animation 600ms ease-out;
+  background-color: rgba(255, 255, 255, 0.7);
+  user-select: none;
+  pointer-events: none;
+}
+@keyframes ripple-animation {
+  to { transform: scale(4); opacity: 0; }
+}
+
+
+/* 段落1：日期輸入畫面 */
+.cover-check {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #0f0f0f;
+  padding: 0 4vw;
+}
+.cover-check h2 {
+  font-size: 2.2rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  color: #fff;
+  text-align: center;
+  letter-spacing: 0.05em;
+  text-shadow: 0 2px 10px #000;
+}
+.date-inputs {
+  display: flex;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+}
+.date-inputs input {
+  width: 80px;
+  padding: 0.8rem;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  border: none;
+  background: #222;
+  color: #fff;
+  text-align: center;
+  outline: none;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  transition: border 0.2s;
+}
+#date-confirm-btn {
+  padding: 0.8rem 2.2rem;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  border: none;
+  background: #6200ee;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+  transition: background 0.2s;
+  margin: 0 auto;
+  display: block;
+}
+#date-confirm-btn:hover {
+  background: #6e08ff;
+}
+@media (max-width: 600px) {
+  .date-inputs {
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+  .cover-check h2 {
+    font-size: 1.3rem;
+  }
+  .date-inputs input {
+    width: 60vw;
+    max-width: 120px;
+    font-size: 1rem;
+  }
+  #date-confirm-btn {
+    width: 100%;
+    min-width: 110px;
+    font-size: 1rem;
+  }
+}
+
+/* 段落2：打字動畫 */
+#intro {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+}
+
+.typewriter {
+  /* 預留高度，讓按鈕固定位置不被推動 */
+  min-height: 12em;
+  font-size: 2vw;
+  font-style: italic;
+  text-align: center;
+  max-width: 90vw;
+}
+
+.type-line {
+  display: block;
+  overflow: hidden;
+  margin: 0;
+}
+
+.caret {
+  display: inline-block;
+  font-size: 1.5em;
+  animation: blink .8s infinite;
+  margin-left: 4px;
+}
+
+@keyframes blink {
+  0%,100% { opacity: 1 }
+  50% { opacity: 0 }
+}
+/* 段落3：肖像卡與 AKA 列表 */
+.portrait-card {
+  background: rgba(255,255,255,0.15);
+  border-radius: 18px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.20), 0 1.5px 6px rgba(0,0,0,0.06);
+  max-width: 68vw;
+  margin: 0 auto 0 auto;
+  padding: 6vw 3vw 3vw 3vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(2px);
+}
+.portrait-card img {
+  width: 150vw; max-width: 350px;
+  height: 100vw; max-height:400px;
+  border-radius: 12px; 
+  object-fit: cover;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.14);
+  border: 2.5px solid #f9f9f9;
+  background: #f3f3f3;
+}
+.aka {
+  opacity: 0; transform: translateY(20px);
+  font-size: 3vw; line-height: 1.6;
+  transition: opacity .8s, transform .8s;
+  text-align: center;
+}
+.aka.visible { opacity: 1; transform: translateY(0); }
+#portrait { min-height: 90vh; padding-bottom: 12vw; }
+
+/* 段落4：Tinder 卡片區 */
+.swipe-area {
+  position: relative;
+  width: 92vw; max-width: 340px;
+  height: 100vw; max-height: 440px;
+  margin: 0 auto;
+}
+.card {
+  position: absolute;
+  width: 100%; height: 100%;
+  background: #222; border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+  touch-action: none; user-select: none;
+  transition: transform .3s, opacity .3s;
+  display: flex; flex-direction: column;
+}
+.profile-info {
+  padding: 1.2rem 1rem 1.1rem 1rem;
+  font-size: 1.1rem; line-height: 1.5;
+  text-align: left; color: #fff;
+  background: rgba(34,34,34,0.95);
+  border-radius: 16px 16px 16px 16px; margin: 0;
+}
+.swipe-icons {
+  display: flex;
+  justify-content: space-between; /* ← 左右兩端 */
+  align-items: center;
+  width: 80%;     /* 或 90%，可調整 */
+  padding:0.7rem 0 0 0; /* 左右內縮一點 */
+  margin: 0 auto;
+}
+.card img {
+  width: 100%; display: block;
+  border-radius: 16px 16px 16px 16px;
+  border-bottom: 1px solid #333;
+  flex-shrink: 0;
+}
+.like-overlay {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%,-50%) scale(.5);
+  color: #ff6699; font-size: 2.5rem; font-weight: bold;
+  pointer-events: none; opacity: 0;
+  transition: opacity .2s, transform .2s;
+}
+.like-overlay.visible { opacity: 1; transform: translate(-50%,-50%) scale(3); }
+.result-float { margin-top: 6vw; font-size: 1.1rem; opacity: 0; transition: opacity .6s; text-align: center; }
+.result-float.visible { opacity: 1; }
+    .swipe-hint-overlay {
+  position: absolute;
+  top:40%;
+  left: 50%;
+  transform: translateX(-50%);
+ 
+  color: #e37b7b;
+  padding: 0px 0px;
+  border-radius: 6px;
+  font-size: 1rem;
+  z-index: 5;
+  animation: hintWobble 2s infinite ease-in-out;
+  pointer-events: none;
+  user-select: none;
+}
+@keyframes hintWobble {
+  0%   { transform: translateX(-50%) translateX(0); }
+  25%  { transform: translateX(-50%) translateX(-8px); }
+  50%  { transform: translateX(-50%) translateX(8px); }
+  75%  { transform: translateX(-50%) translateX(-5px); }
+  100% { transform: translateX(-50%) translateX(0); }
+}
+
+
+/* 段落5：房間故事 */
+    #roomstory {
+      display: none; 
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;     /* 從上方開始排列 */
+      padding-top: 12vh;               /* 留白讓段落往下 */
+      background: #222 url('https://assets.onecompiler.app/43jm6npf3/43jzaj6qd/room-scene-03.png') center/cover no-repeat;
+      padding: 3vw 2vw;
+      box-sizing: border-box;
+    }
+        .roomstory-gradient {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%);
+  opacity: 0.9; /* 可調整為 0.7~1 看你要多深 */
+  transition: opacity 1s;
+}
+    #roomstory-text {
+      position: relative;
+      font-size: 1.25rem;
+      width: 100%;
+      max-width: 660px;
+      min-width: 260px;
+      min-height: 20em;
+      height: 12em;
+      overflow: hidden;
+      margin: 2rem auto;
+      padding: 1rem 1.5rem;
+       text-align: center;         /* ✅ 整體置中 */
+      box-sizing: border-box;
+    }
+    .roomstory-group {
+      z-index: 2;
+      position: absolute;
+      left: 0; right: 0; top: 0;
+      width: 100%;
+      font-size: 2rem;
+      color: #fff;
+      line-height: 1.5;
+      letter-spacing: 0.03em;
+      white-space: pre-line;
+      opacity: 0;
+      transition: opacity 2S;
+      pointer-events: none;
+      padding: 0 1rem;
+      box-sizing: border-box;
+      text-align: center;
+      /* 文字光暈效果加強 */
+      text-shadow:
+        0 0 16px #ff3232,
+        0 0 32px #fff,
+        0 0 8px #ff5252,
+        0 0 2px #fff;
+      filter: brightness(1.07);
+    }
+    .roomstory-inner {
+  margin-top: 20vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+    .roomstory-group.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    #roomstory-controls {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .roomstory-btn {
+      font-size: 1rem;
+      padding: 0.6rem 1.8rem;
+      border-radius: 8px;
+      background: #ff5252;
+      color: #fff;
+      border: none;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+      cursor: pointer;
+      transition: background 0s, opacity 0.1s;
+      user-select: none;
+      margin-top: 3.5rem;  /* 往下移，數字可調整 */
+      z-index: 2;
+    }
+    .roomstory-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+  
+    @media (max-width: 650px) {
+      #roomstory-text {
+        max-width: 150vw;
+        min-width: 0;
+        font-size: 0.5rem;
+        height: auto;
+        min-height: 20em;
+      }
+      .roomstory-group {
+        font-size: 1rem;
+      }
+    }
+
+/* 段落6：Bridge 過場動畫 */
+#bridge { 
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 600px;
+  min-height: 300px;
+  background: #FFF;
+} }
+.bridge-card {
+  position: relative;
+  width: 92vw; max-width: 340px;
+  height: 300px;
+  background: rgba(255,255,255,0.10);
+  border-radius: 18px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.20), 0 1.5px 6px rgba(0,0,0,0.06);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.2rem 1.2rem 2.4rem 1.2rem;
+  backdrop-filter: blur(2px);
+  margin: 0 auto;
+}
+.bridge-card img {
+  width: 300PX;
+  border-radius: 12px 12px 6px 6px;
+  object-fit: cover;
+  background: #333;
+  margin-bottom: 1.3rem;
+}
+.bridge-text {
+  font-size: 1.2rem;
+  color: #fff;
+  text-align: center;
+  font-weight: bold;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.7);
+  margin-bottom: 1rem;
+  animation: wobble 2s infinite;
+  letter-spacing: 0.5px;
+}
+.scroll-hint {
+  font-size: 1rem;
+  color: #ccc;
+  animation: bounceDown 2s infinite;
+  text-align: center;
+  user-select: none;
+  opacity: 0.8;
+}
+
+@keyframes bounceDown {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(10px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes wobble {
+  0% { transform: translateX(0);}
+  20% { transform: translateX(-7px);}
+  40% { transform: translateX(7px);}
+  60% { transform: translateX(-5px);}
+  80% { transform: translateX(5px);}
+  100% { transform: translateX(0);}
+}
+<!-- 彈出視窗：咩欸 -->
+<div id="sheep-modal" style="
+  position:fixed; top:0; left:0; width:100vw; height:100vh;
+  background:rgba(0,0,0,0.6); display:none;
+  justify-content:center; align-items:center; z-index:999;
+">
+  <div style="
+    background:#222; padding:2rem; border-radius:12px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.6); text-align:center;
+    max-width:80%;
+  ">
+    <p style="
+      margin-bottom:1.5rem; font-size:1.4rem;
+      color:#f9f9f9; font-family:'Noto Serif TC', serif;
+    ">咩欸</p>
+    <button id="sheep-reply-btn" style="
+      background:#333; color:#f9f9f9; border:1px solid #555;
+      padding:0.8rem 1.2rem; border-radius:8px;
+      cursor:pointer; font-size:1rem;
+      transition:background 0.3s,transform 0.2s;
+    ">咩欸</button>
+  </div>
+</div>
+
+<style>
+  .fade-item { opacity:0; transform:translateY(20px); transition:opacity .5s, transform .5s; }
+  .fade-item.in { opacity:1; transform:translateY(0); }
+  .fade-item.out { opacity:0; transform:translateY(-20px); }
+</style>
+
+
+
+<style>
+#adventure {
+  display:none;
+  min-height:80vh;
+  padding:4rem 1rem;
+  background: #17202A;
+  color: #fff;
+  text-align:center;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  opacity:0; transition:opacity .8s;
+  position:relative;
+}
+.fade-item { opacity:0; transform:translateY(20px); transition:opacity .5s, transform .5s; }
+.fade-item.in { opacity:1; transform:translateY(0); }
+.fade-item.out { opacity:0; transform:translateY(-20px); }
+
+#adventure-choices {
+  display: flex;
+  flex-direction: column;    /* 由橫排改為直排 */
+  align-items: center;       /* 內容置中 */
+  gap: 1.2rem;               /* 按鈕間距 */
+}
+
+.adventure-choice-btn {
+  width: 230px;              /* 或100%，看你要多寬 */
+  text-align: center;
+  margin: 0;
+  margin-bottom: 0.2em;
+}
+#adventure .adventure-choice-btn {
+  background: #333; color:#f9f9f9; border:1px solid #555;
+  padding:.8rem 1.2rem; border-radius:8px; cursor:pointer;
+  margin:0.5rem;font-size:1rem;transition:background .3s,transform .2s;
+}
+#adventure .adventure-choice-btn:hover { background: #09876d; }
+#back-btn, #continue-btn {
+  display:none;
+  margin:1rem auto 0;
+  background:#333;
+  color:#f9f9f9;
+  border:1px solid #555;
+  padding:0.8rem 1.2rem;
+  border-radius:8px;
+  cursor:pointer;
+  font-size:1rem;
+  transition:background .3s,transform .2s;
+}
+
+
+/* 段落8：翻牌彩蛋 Highlights */
+#highlights {
+  display:none;
+  padding:4rem 1rem;
+  text-align:center;
+  background:#0f0f0f;
+  color:#f9f9f9;
+  min-height:80vh;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+}
+.comic-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  margin: 0 auto;
+  max-width: 90vw;
+}
+@media (min-width: 700px) {
+  .comic-grid { flex-direction: row; }
+}
+.flip-card {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  perspective: 1000px;
+  cursor: pointer;
+}
+.flip-front,
+.flip-back {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  backface-visibility: hidden;
+  transform-origin: center bottom;
+  transition: transform .6s cubic-bezier(.32,.72,.49,1.09);
+  border-radius: 8px;
+  display: flex; justify-content: center; align-items: center;
+}
+.flip-front { background: #222; transform: rotateX(0deg);}
+.flip-back {
+  background: #1a1a1a;
+  color: #fff;
+  flex-direction: column;
+  text-align: center;
+  padding: 1rem;
+  transform: rotateX(-90deg);}
+.flip-card.flipped .flip-front { transform: rotateX(90deg);}
+.flip-card.flipped .flip-back { transform: rotateX(0deg);}
+.subtitle {
+  font-size: 1.08rem;
+  color: #ffc7c7;
+  margin-bottom: .6em;
+  margin-top: .8em;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+/* 段落9：蜥蜴人驗證 */
+#alien-test {
+  display:none;
+  padding: 4rem 1rem;
+  min-height:80vh;
+  background: #191d23;
+  color: #f9f9f9;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.choice-btn, .reset-btn, .continue-btn {
+  background: #222;
+  color: #f9f9f9;
+  border: none;
+  padding: 1rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1.125rem;
+  min-width: 125px;
+  transition: background 0.2s;
+  margin: 1rem 0.5rem 0 0;
+}
+.choice-btn:hover, .reset-btn:hover, .continue-btn:hover { background: #444; }
+#alien-result img {
+  max-width: 300px;
+  margin-top: 1rem;
+  border-radius: 8px;
+}
+#alien-choices {
+  display: flex;
+  flex-direction: column;   /* 由橫排改為直排 */
+  align-items: center;      /* 子項目置中 */
+  gap: 1.2rem;              /* 選項間距可自行調整 */
+  max-width: 90vw;
+  margin: 0 auto;
+}
+
+.choice-btn, .reset-btn, .continue-btn {
+  width: 230px;            /* 或100%或你要的寬度，確保視覺上夠大 */
+  text-align: center;
+  margin: 0;               /* 不要有右邊距 */
+  margin-bottom: 0.2em;
+}
+
+/* 結尾特效 */
+#ending {
+  display:none;
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  flex-direction:column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: #000;
+}
+#particle-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+}
+#background-gif {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+#ending-text {
+  position: relative;
+  z-index: 2;
+  font-size: 2rem;
+  color: #fff;
+  line-height: 1.4;
+  text-shadow: 2px 2px 8px rgba(255,0,150,0.7),
+               -2px -2px 8px rgba(0,255,150,0.7),
+               2px -2px 8px rgba(150,150,255,0.7);
+  animation: floatText 2s ease-in-out infinite alternate;
+  margin-top: 8vh;
+}
+#restart-btn { z-index: 4; position: relative; }
+@keyframes floatText {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-30px); }
+}
+
+  </style>
+</head>
+<!-- HTML -----------------HTML---------------------HTML---------------------------------->
+<body>
+
+<!-- 段落1：日期輸入 -->
+<section class="cover-check" id="cover-check">
+  <h2 style="text-align:center;">請輸入這個重要的日子 🗓️</h2>
+  <div class="date-inputs">
+    <input type="text" id="year" placeholder="年">
+    <input type="text" id="month" placeholder="月">
+    <input type="text" id="day" placeholder="日">
+    <button id="date-confirm-btn" onclick="checkDate()">粗花</button>
+  </div>
+</section>
+
+<!-- 段落2：打字動畫開場 -->
+<section id="intro" style="display:none; justify-content:center; align-items:center; min-height:60vh; flex-direction:column;">
+  <div>
+    <h2 style="text-align:center;"></h2>
+    <div class="typewriter" style="text-align:left; max-width:340px;">
+      <p class="type-line" id="line1"></p>
+      <p class="type-line" id="line2"></p>
+      <p class="type-line" id="line3"></p>
+      <p class="type-line" id="line4"></p>
+      <p class="type-line" id="line5"></p>
+      <span class="caret" id="caret">|</span>
+    </div>
+  </div>
+  <button id="next-intro-btn" class="next-intro-btn" style="margin-top:2.5rem;">出發囉</button>
+</section>
+
+<!-- 段落3：AKA肖像段 -->
+<section id="portrait" style="display:none; flex-direction:column; align-items:center; justify-content:center; min-height:100vh;">
+  <div class="portrait-card">
+    <img src="https://assets.onecompiler.app/43jm6npf3/43jm3pwde/portrait-hero.png" alt="小貓咪漫畫肖像">
+  </div>
+  <div class="aka" id="aka1"> <br>僅呈現給<br>我最愛的菀璘寶貝</div>
+  <div class="aka" id="aka2">a.k.a. 小貓咪</div>
+  <div class="aka" id="aka3">a.k.a. 音符</div>
+  <div class="aka" id="aka4">a.k.a. 黃色小鴨鴨</div>
+  <div class="aka" id="aka5">a.k.a. 刺客大師</div>
+  <div class="aka" id="aka6">a.k.a. 未來的陳太太</div>
+  <button id="next-portrait-btn" class="next-intro-btn" style="display:none; margin-top:2.5rem;">繼續</button>
+</section>
+
+<!-- 段落4：Tinder卡片段 -->
+<section id="tinder" style="display:none; padding: 4rem 1rem 3rem 1rem;">
+  <h2 style="text-align: center; width: 100%;">那天，我在Tinder上第一眼看到妳…</h2>
+  <div class="swipe-area">
+    <div class="card" id="card">
+      <div class="swipe-hint-overlay">左滑? or 右滑?</div>
+      <div class="profile-info">
+        • 沒辦法接受鮪魚吐司<br>
+        • 薯餅蛋餅一定加番茄醬<br>
+        • 42 公里<br>
+        • 國立中正大學
+      </div>
+
+      <div class="swipe-icons" style="display:flex; justify-content:space-between; align-items:center; width:100%; ">
+        <span style="font-size:3rem; color:#f86a6a;">❌</span>
+        <span style="font-size:3rem; color:#ff69b4;">❤️</span>
+      </div>
+      <img src="https://assets.onecompiler.app/43jm6npf3/43jm3pwde/livi-new.png" alt="Tinder 照片">
+      <div id="likeOverlay" class="like-overlay">💕LIKE</div>
+    </div>
+
+    <div class="result-float" id="swipe-result"></div>
+    <button id="next-tinder-btn" class="next-intro-btn" style="display:none; margin-top:2.5rem;">繼續</button>
+  </div>
+</section>
+
+<!-- 段落5：房間故事段落 -->
+ <section id="roomstory"style="display:none;">
+     <div class="roomstory-gradient"></div>
+     <div class="roomstory-inner">
+     <div id="roomstory-text">
+      有那麼幾天清晨的第一縷光線<br>
+      從窗邊微微傾落，<br>
+      我吻著你的額頭，<br>
+      此時的你<br>
+      也許還熟睡也許在半夢之間；<br>
+      也有那麼幾天...<br>
+      我們在這個角落<br>
+      第一次聊人生、聊夢想。<br>
+      我滿足了妳很多想像，<br>
+      你總說我很帥也說我很可愛，<br>
+      沒有人像你這樣真誠。<br>
+      我們認識1個月、見面2次、曖昧3小時，<br>
+      然後那晚我們在一起了！<br>
+      在此之前我很難想像，<br>
+      這個人會願意用一輩子陪我，<br>
+      你讓我全宇宙最幸福的人，<br>
+      而你，菀璘你知道嗎？<br>
+      你也值得和我一樣幸福。<br>
+      就這樣兩年了，<br>
+      我們用無數清晨和深夜，<br>
+      把這張床、這個角落，<br>
+      填滿了只屬於我們的回憶，<br>
+      並帶到現在的地方，<br>
+      也帶去未來所有走的地方。
+    </div>
+    <div id="roomstory-controls">
+      <button id="prev-group" class="roomstory-btn">⭠</button>
+      <button id="next-group" class="roomstory-btn">⭢</button>
+      </div>
+      <button id="roomstory-next" class="roomstory-btn" style="display:none;" onclick="goToBridge()">卯屋</button>
+</section>
+
+<!-- 段落6：過場動畫（Bridge）-->
+<section id="bridge" style="display:none; justify-content:center; align-items:center; width:100vw; min-height:60vh; background:#000;">
+  <div class="bridge-card">
+    <img src="https://media.giphy.com/media/nNxT5qXR02FOM/giphy.gif" alt="過場">
+    <div class="bridge-text">肉麻的部分結束，好玩的正要開始～</div>
+        <button id="next-bridge-btn" class="next-intro-btn" style="margin-top: 2rem;">啵啵</button>
+    <div class="scroll-hint">⬇ 啵啵完往下滑看看 ⬇</div>
+  </div>
+</section>
+
+
+<!-- 段落7：小冒險互動選擇段 -->
+<section id="adventure">
+  <h2 class="fade-item" style="margin-bottom:2rem;">還記得嗎...</h2>
+  <div id="adventure-text" class="fade-item" style="font-size:1.2rem; margin-bottom:1.5rem;"></div>
+  <div id="adventure-choices" class="fade-item"></div>
+  <button id="back-btn" class="fade-item">上一步</button>
+  <button id="continue-btn" class="fade-item">繼續</button>
+</section>
+<!-- 彈出視窗：咩欸 -->
+<div id="sheep-modal" style="
+  position:fixed; top:0; left:0; width:100vw; height:100vh;
+  background:rgba(0,0,0,0.6); display:none;
+  justify-content:center; align-items:center; z-index:999;
+">
+  <div id="sheep-modal-content" style="
+    background:#222; 
+    padding:2.5rem 2rem;      /* 內距可加大 */
+    border-radius:18px;       /* 圓角加大 */
+    box-shadow:0 4px 20px rgba(0,0,0,0.7);
+    text-align:center;
+    width: min(350px,90vw);   /* 固定最大寬度，也可用max-width */
+    min-width:200px;
+    min-height:180px;
+    max-width:95vw;           /* 不會超出手機畫面 */
+    margin: 0 auto;
+  ">
+    <p style="
+      margin-bottom:1.5rem; font-size:1.4rem;
+      color:#f9f9f9; font-family:'Noto Serif TC', serif;
+    ">咩欸</p>
+    <button id="sheep-reply-btn" style="
+      background:#333; color:#f9f9f9; border:1px solid #555;
+      padding:0.8rem 1.2rem; border-radius:8px;
+      cursor:pointer; font-size:1rem;
+      transition:background 0.3s,transform 0.2s;
+    ">咩欸</button>
+  </div>
+</div>
+</section>
+
+<!-- 段落8：翻牌彩蛋 Highlights -->
+<section id="highlights" style="display:none; flex-direction:column; align-items:center; justify-content:center;">
+  <h2 style="font-family:'Noto Serif TC', serif; font-size:1.8rem; margin-bottom:2rem;">🎉 HIGHLIGHT TIME 🎉</h2>
+  <div class="comic-grid">
+      <div class="flip-card">
+        <div class="flip-front">
+          <img src="https://assets.onecompiler.app/43jm6npf3/43jm3pwde/hl1.png" alt="大屁驚喜" style="width:100%; height:100%; object-fit:cover;">
+        </div>
+        <div class="flip-back">
+          <h3>偷放了個大屁<br>被我發現</h3>
+          <p class="subtitle">我想讓你知道…</p>
+          <p>「有你在，生活大小事<br>也可以很有趣」</p>
+        </div>
+      </div>
+      <div class="flip-card">
+        <div class="flip-front">
+          <img src="https://assets.onecompiler.app/43jm6npf3/43jm3pwde/hl2.png" alt="陪伴降臨" style="width:100%; height:100%; object-fit:cover;">
+        </div>
+        <div class="flip-back">
+          <h3>2023.09.10<br>在你低落時<br>跑去嘉義陪你</h3>
+          <p class="subtitle">我想讓你知道…</p>
+          <p>「我願意接住你」</p>
+        </div>
+      </div>
+      <div class="flip-card">
+        <div class="flip-front">
+          <img src="https://assets.onecompiler.app/43jm6npf3/43jm3pwde/hl3.png" alt="一起看表演" style="width:100%; height:100%; object-fit:cover;">
+        </div>
+        <div class="flip-back">
+          <h3>2024.03.11<br>你跟我去看表演</h3>
+          <p class="subtitle">我想讓你知道…</p>
+          <p>「感謝陪著彼此<br>做最喜歡的事情」</p>
+        </div>
+      </div>
+      <div class="flip-card">
+        <div class="flip-front">
+          <img src="https://assets.onecompiler.app/43jm6npf3/43jm3pwde/hl4.png" alt="美好司康" style="width:100%; height:100%; object-fit:cover;">
+        </div>
+        <div class="flip-back">
+          <h3>2023.05.13<br>第一次約會<br>去咖啡店吃<br>你最愛的司康</h3>
+          <p class="subtitle">我想讓你知道…</p>
+          <p>「和你共度的每一刻<br>都很美好」</p>
+        </div>
+      </div>
+    </div>
+  <button id="highlights-next-btn" class="next-intro-btn" style="display:inline-block; margin:3rem auto 0 auto;">繼續</button>
+</section>
+
+<!-- 段落9：蜥蜴人驗證段 -->
+<section id="alien-test"style="display:none;">
+  <h2>🦎 外星蜥蜴人身分測試</h2>
+  <p>如果我們其中一人<br>被外星蜥蜴人綁架並替換成克隆人，<br>要用什麼暗號確認彼此身分？</p>
+  <div id="alien-choices">
+    <button class="choice-btn" data-answer="A">A. 噗咕</button>
+    <button class="choice-btn" data-answer="B">B. 呱呱</button>
+    <button class="choice-btn" data-answer="C">C. 咩欸</button>
+    <button class="choice-btn" data-answer="D">D. 啵啵</button>
+  </div>
+  <div id="alien-result"></div>
+</section>
+
+<!-- 段落10：飛天小女警結尾特效 -->
+<section id="ending">
+  <canvas id="particle-canvas"></canvas>
+  <img id="background-gif" src="https://media.giphy.com/media/2fWhltsC9ImfoNEJ0F/giphy.gif" alt="飛天小女警">
+  <div id="ending-text">
+    比哺生日快樂！<br>要天天開心喔！<br>愛你ㄉ狗勾為您呈獻
+  </div>
+  <button id="restart-btn" class="next-intro-btn" style="margin-top: 2rem;">重新開始旅程</button>
+
+</section>
+
+<!-- JS 整合 -------------------------------------------------------------------------------------------------->
+<script>
+  // 段落傳送門
+  function jumpToSection(id) {
+  const ids = [
+    'cover-check','intro','portrait','tinder','roomstory','bridge',
+    'adventure','highlights','alien-test','ending'
+  ];
+  ids.forEach(sec => {
+    const el = document.getElementById(sec);
+    if (el) el.style.display = 'none';
+  });
+  const target = document.getElementById(id);
+  if (target) {
+    const useFlex = ['intro','portrait','tinder','roomstory','bridge','adventure','highlights','alien-test','ending'];
+    target.style.display = useFlex.includes(id) ? 'flex' : 'block';
+
+    // 若需要初始化段落內容（如房間故事、特效等）可加：
+    if (id === 'roomstory') setupRoomStoryManualSwitching?.();
+    if (id === 'ending') setTimeout(startParticles, 200);
+  }
+}
+  
+  // Ripple 按鈕效果
+  window.onload = () => {
+    document.querySelectorAll(".next-intro-btn").forEach(button => {
+      button.addEventListener("click", (event) => {
+        const target = event.currentTarget;
+        const circle = document.createElement("span");
+        const diameter = Math.max(target.clientWidth, target.clientHeight);
+        const radius = diameter / 2;
+        circle.style.width = circle.style.height = `${diameter}px`;
+        circle.style.left = `${event.offsetX - radius}px`;
+        circle.style.top = `${event.offsetY - radius}px`;
+        circle.classList.add("ripple");
+        const ripple = target.querySelector(".ripple");
+        if (ripple) ripple.remove();
+        target.appendChild(circle);
+      });
+    });
+  };
+
+
+  document.addEventListener("DOMContentLoaded", function() {
+      var restartBtn = document.getElementById("restart-btn");
+  if (restartBtn) {
+    restartBtn.onclick = resetToCover;
+  } else {
+    console.log("restart-btn not found when binding!");
+  }
+    // 段1：日期檢查
+    document.getElementById('date-confirm-btn').onclick = function() {
+      const y = document.getElementById("year").value.trim();
+      const m = document.getElementById("month").value.trim();
+      const d = document.getElementById("day").value.trim();
+      if (y === "1997" && m === "5" && d === "22") {
+        alert("我的專屬天使，準備好了嗎?");
+        document.getElementById("cover-check").style.display = "none";
+        document.getElementById("intro").style.display = "flex";
+        setTimeout(() => revealLine(0), 500);
+      } else alert("再想想看！");
+    };
+    // 段2：打字動畫
+    const lines = [
+      "我愛你，",
+      "不是因為你是誰， ",
+      "而是因為在你面前， ",
+      "我可以是誰。 ",
+      "— Roy Croft "
+    ];
+    function revealLine(i) {
+      const p = document.getElementById("line" + (i + 1));
+      const caret = document.getElementById("caret");
+      if (!p) return;
+      let idx = 0;
+      p.textContent = "";
+      caret.style.display = "inline-block";
+      const iv = setInterval(() => {
+        p.textContent += lines[i][idx++];
+        if (idx === lines[i].length) {
+          clearInterval(iv);
+          caret.style.display = "none";
+          if (i < lines.length - 1) {
+            setTimeout(() => revealLine(i + 1), 700);
+          } else {
+            caret.style.display = "inline-block";
+            document.getElementById("next-intro-btn").style.display = "block";
+          }
+        }
+      }, 80);
+    }
+    // 段3：進入 AKA
+    document.getElementById("next-intro-btn").onclick = function () {
+      document.getElementById("intro").style.display = "none";
+      document.getElementById("portrait").style.display = "block";
+      const akas = document.querySelectorAll(".aka");
+      akas.forEach((el, i) => {
+        setTimeout(() => {
+          el.classList.add("visible");
+          if (i === akas.length - 1) {
+            document.getElementById("next-portrait-btn").style.display = "block";
+          }
+        }, 600 + i * 400);
+      });
+    };
+    // 段4：Tinder
+    document.getElementById("next-portrait-btn").onclick = function () {
+      document.getElementById("portrait").style.display = "none";
+      document.getElementById("tinder").style.display = "block";
+    };
+    (function(){
+      const card = document.getElementById('card');
+      const likeOverlay = document.getElementById('likeOverlay');
+      const result = document.getElementById('swipe-result');
+      const nextBtn = document.getElementById('next-tinder-btn');
+      let startX = null, offsetX = 0, done = false;
+      card.addEventListener('pointerdown', e => {
+        if(done) return;
+        startX = e.clientX;
+        card.setPointerCapture(e.pointerId);
+      });
+      card.addEventListener('pointermove', e => {
+        if (startX !== null && !done) {
+          offsetX = e.clientX - startX;
+          card.style.transform = `translateX(${offsetX}px) rotate(${offsetX/10}deg)`;
+          likeOverlay.classList.toggle('visible', offsetX > 60);
+        }
+      });
+      card.addEventListener('pointerup', e => {
+        if(done) return;
+        card.releasePointerCapture(e.pointerId);
+        likeOverlay.classList.remove('visible');
+        if (offsetX > 100) showResult(true);
+        else if (offsetX < -100) showResult(false);
+        else card.style.transform = '';
+        startX = null;
+      });
+      function showResult(match) {
+        done = true;
+        card.style.opacity = 0;
+        const hintOverlay = document.querySelector('.swipe-hint-overlay');
+        if (hintOverlay) hintOverlay.style.display = 'none';
+
+        if (match) {
+          result.innerHTML =
+              `✅ Match 成功！<br>我想我做了人生最重大的選擇…<br>
+       <img src="https://assets.onecompiler.app/43jm6npf3/43jm3pwde/bubu1.png" alt="Match 成功" style="max-width:300px;">
+       <br>
+       <button id="retry-tinder-btn" class="next-intro-btn" style="margin-top:1.5rem;display:inline-block;">該不會還想再滑一次?</button>
+      `;
+    nextBtn.style.display = "block";
+    setTimeout(()=>{
+      const retryBtn = document.getElementById('retry-tinder-btn');
+      if(retryBtn){
+        retryBtn.onclick = function() {
+          result.classList.remove('visible');
+          result.innerHTML = '';
+          card.style.opacity = 1;
+          card.style.transform = '';
+          done = false;
+          if (hintOverlay) hintOverlay.style.display = 'block';
+          nextBtn.style.display = "none";
+        }
+      }
+    },100);
+        } else {
+          result.innerHTML =
+            `❌ 哎呀...<br>妳就這樣錯過了彼此…<br>
+             <img src="https://media.giphy.com/media/y6lu312reRzVC46yFn/giphy.gif" alt="錯過" style="max-width:300px;">
+             <br><button id="retry-tinder-btn" class="next-intro-btn" style="margin-top:1.5rem;display:inline-block;">再滑一次</button>`;
+          setTimeout(()=>{
+            const retryBtn = document.getElementById('retry-tinder-btn');
+            if(retryBtn){
+              retryBtn.onclick = function() {
+                result.classList.remove('visible');
+                result.innerHTML = '';
+                card.style.opacity = 1;
+                card.style.transform = '';
+                done = false;
+              }
+            }
+          },100);
+        }
+        result.classList.add('visible');
+      }
+      nextBtn.onclick = function() {
+        document.getElementById("tinder").style.display = "none";
+        document.getElementById("roomstory").style.display = "block";
+      }
+    })();
+    
+    
+    // 段5：房間故事
+function splitTextIntoGroups(text, groupSize = 3) {
+  const sentences = text.replace(/<br\s*\/?>/gi, '\n')
+    .split('\n')
+    .map(s => s.trim())
+    .filter(Boolean);
+  let groups = [];
+  for (let i = 0; i < sentences.length; i += groupSize) {
+    groups.push(sentences.slice(i, i + groupSize).join('\n'));
+  }
+  return groups;
+}
+function setupRoomStoryManualSwitching() {
+  const textEl = document.getElementById('roomstory-text');
+  const originalHTML = textEl.innerHTML;
+  const groups = splitTextIntoGroups(originalHTML, 3);
+
+  textEl.innerHTML = groups.map((g, i) =>
+    `<div class="roomstory-group${i === 0 ? ' active' : ''}" style="opacity:${i===0?1:0}">${g}</div>`
+  ).join('');
+
+  const groupEls = textEl.querySelectorAll('.roomstory-group');
+  let current = 0;
+  const transitionTime = 200;
+  const prevBtn = document.getElementById('prev-group');
+  const nextBtn = document.getElementById('next-group');
+  const finalBtn = document.getElementById('roomstory-next');
+
+  function updateBtn() {
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current === groupEls.length - 1;
+    finalBtn.style.display = (current === groupEls.length - 1) ? "block" : "none";
+  }
+  function showGroup(idx) {
+    if (idx === current) return;
+    groupEls[current].classList.remove('active');
+    groupEls[current].style.opacity = 0;
+    setTimeout(() => {
+      groupEls[idx].classList.add('active');
+      groupEls[idx].style.opacity = 1;
+      current = idx;
+      updateBtn();
+    }, transitionTime);
+  }
+  prevBtn.addEventListener('click', function () {
+    if (current > 0) showGroup(current - 1);
+  });
+  nextBtn.addEventListener('click', function () {
+    if (current < groupEls.length - 1) showGroup(current + 1);
+  });
+  updateBtn();
+}
+setupRoomStoryManualSwitching();
+document.getElementById("roomstory-next").addEventListener("click", function () {
+  
+  // 隱藏房間段落
+  document.getElementById("roomstory").style.display = "none";
+  
+  
+  // 顯示 bridge 段落
+  const bridge = document.getElementById("bridge");
+  bridge.style.display = "flex";
+});
+function goToBridge() {
+  document.getElementById("roomstory").style.display = "none";
+  document.getElementById("bridge").style.display = "flex";
+}
+
+    // 段6：Bridge → 小冒險
+   document.getElementById("next-bridge-btn").onclick = () => {
+  alert("It's 啵啵 time~");
+  document.getElementById("bridge").style.display = "flex";
+  const adv = document.getElementById("adventure");
+  adv.style.display = "flex";
+  setTimeout(()=>adv.style.opacity=1,10);
+};
+    // 段7：小冒險互動
+(function(){
+  const flow = {
+    start: { t:"我們第一次見面的地方？", c:[
+      {t:"公園路 PARKrd",n:"wrong"},{t:"北門路 BEIMENrd",n:"room"}
+    ]},
+    wrong:{ t:"哈哈猜錯～其實是北門路！", c:[{t:"繼續",n:"room"}]},
+    room:{ t:"你是否還記得我們在一起的那個下午我們在房間做什麼？", c:[
+      {t:"你看著我的拍的底片",n:"room1"},{t:"你跟我在閒聊論文",n:"room2"}
+    ]},
+    room1:{ t:"我希望我們的未來也能被記錄著", c:[
+      {t:"下一題",n:"drink"},{t:"上一題",n:"room"}
+    ]},
+    room2:{ t:"也許我們的幸福理論可以一起論述", c:[
+      {t:"下一題",n:"drink"},{t:"再選一次",n:"room"}
+    ]},
+    drink:{ t:"那晚派對我們喝了？", c:[
+      {t:"可樂娜 Corona",n:"end1"},{t:"朝日 Asahi",n:"end2"}
+    ]},
+    end1:{ t:"生日快樂！你是否還記得清爽的可樂娜配檸檬的那個酸甜好比我們約會那天的感覺", c:[
+      {t:"再玩一次",n:"start"},{t:"上一題",n:"drink"},{t:"繼續",n:"next"}
+    ]},
+    end2:{ t:"生日快樂！也許是那晚的最後一杯酒，氣泡與酒精的昇華使我鼓起勇氣帶你走向幸福", c:[
+      {t:"再玩一次",n:"start"},{t:"上一題",n:"drink"},{t:"繼續",n:"next"}
+    ]}
+  };
+
+  const txt = document.getElementById('adventure-text');
+  const ch  = document.getElementById('adventure-choices');
+  const sec = document.getElementById('adventure');
+  const backBtn = document.getElementById('back-btn');
+  const contBtn = document.getElementById('continue-btn');
+  const modal = document.getElementById('sheep-modal');
+  const replyBtn = document.getElementById('sheep-reply-btn');
+
+  function clearFade(){ sec.querySelectorAll('.fade-item').forEach(el=>el.classList.remove('in','out')); }
+  function fadeOut(callback){ sec.querySelectorAll('.fade-item').forEach(el=>el.classList.add('out')); setTimeout(callback,500); }
+  function fadeIn(){ sec.querySelectorAll('.fade-item').forEach((el,i)=>setTimeout(()=>el.classList.add('in'),i*100)); }
+
+  function render(key){
+    sec.style.opacity = 1;
+    const node = flow[key]; if(!node) return;
+    fadeOut(()=>{
+      txt.textContent = node.t;
+      ch.innerHTML = '';
+      backBtn.style.display = 'none'; contBtn.style.display = 'none';
+      node.c.forEach(opt=>{
+        if(opt.n==='next'){
+          contBtn.style.display='block'; contBtn.onclick=()=>{ modal.style.display='flex'; };
+        } else {
+          const btn=document.createElement('button'); btn.textContent=opt.t;
+          btn.className = "adventure-choice-btn";
+          btn.onclick=()=>render(opt.n);
+          ch.appendChild(btn);
+        }
+      });
+      if(key==='room'){ backBtn.style.display='block'; backBtn.onclick=()=>render('start'); }
+      else if(key==='drink'){ backBtn.style.display='block'; backBtn.onclick=()=>render('room'); }
+      clearFade(); fadeIn();
+    });
+  }
+  window.render = render;
+  render('start');
+
+  // 僅保留一次 replyBtn.onclick
+  replyBtn.onclick = ()=>{
+    modal.style.display='none';
+    showHighlights();
+  };
+})();
+
+// 段落8：翻牌初始化與進入
+function initHighlightFlip() {
+  document.querySelectorAll('.flip-card').forEach(card => {
+    card.addEventListener('click', () => {
+      document.querySelectorAll('.flip-card').forEach(c => c.classList.remove('flipped'));
+      card.classList.add('flipped');
+    });
+  });
+}
+function showHighlights() {
+  document.getElementById('adventure').style.display = 'none';
+  const highlights = document.getElementById('highlights');
+  highlights.style.display = 'flex';
+  initHighlightFlip();
+}
+
+// 段8→9：翻牌→蜥蜴人
+document.getElementById("highlights-next-btn").onclick = function(){
+  document.getElementById('highlights').style.display = 'none';
+  document.getElementById('alien-test').style.display = 'flex';
+};
+
+// 段9：蜥蜴人驗證
+(function(){
+  const choices = document.getElementById("alien-choices"),
+        result  = document.getElementById("alien-result"),
+        correct = "C";
+  function resetChoices() {
+    choices.style.display = "flex";
+    result.innerHTML = "";
+  }
+  function showEnding() {
+    document.getElementById("alien-test").style.display = "none";
+    document.getElementById("ending").style.display = "flex";
+    setTimeout(startParticles, 200);
+  }
+  choices.onclick = e => {
+    if (!e.target.matches("button")) return;
+    const ans = e.target.getAttribute("data-answer");
+    choices.style.display = "none";
+    if (ans === correct) {
+      result.innerHTML = `
+        <p>✅ 答對!你是聰明貓貓～不是蜥蜴人</p>
+        <img src="https://media.giphy.com/media/XFvd6z0HqnwZhFb5en/giphy.gif">
+        <br>
+        <button class="reset-btn">試試其他選擇</button>
+        <button class="continue-btn">繼續</button>
+      `;
+    } else {
+      let msg = "", btn = "", gif = "https://media.giphy.com/media/y6lu312reRzVC46yFn/giphy.gif";
+      if (ans === "A") {
+        msg = "❌ 臭臭!!再猜一次~";
+        btn = `<button class="reset-btn">臭臭，再猜一次~</button>`;
+      } else if (ans === "B") {
+        msg = "❌ 呱呱!!齁齁你想瑟瑟喔，再猜一次？";
+        btn = `<button class="reset-btn">齁齁你想瑟瑟喔，再猜一次?</button>`;
+      } else if (ans === "D") {
+        msg = "❌ 啵啵彗星伺候!!!跟我啵啵10秒完再猜一次 <3";
+        btn = `<button class="reset-btn">罰你跟我啵啵完再猜一次 <3</button>`;
+      }
+      result.innerHTML = `<p>${msg}</p><img src="${gif}"><br>${btn}`;
+    }
+    result.querySelectorAll
+    (".reset-btn").forEach(b => b.onclick = resetChoices);
+    result.querySelectorAll
+    result.querySelectorAll(".continue-btn").forEach(b => b.onclick = function() {
+      alert("恭喜完成挑戰，請索取啵啵獎勵！");
+      showEnding();
+    });
+  };
+})();
+
+    // 段7→8：小冒險「咩欸」→翻牌
+advNextBtn.onclick = function() {
+  document.getElementById("adventure").style.display = "none";
+  document.getElementById("highlights").style.display = "flex";
+  setupRoomStoryManualSwitching(); // ⬅ 加這行才會啟動段落切換邏輯
+};
+    // 段8：翻牌彩蛋互動
+ function initHighlightFlip() {
+  document.querySelectorAll('.flip-card').forEach(card => {
+    card.addEventListener('click', () => {
+      document.querySelectorAll('.flip-card').forEach(c => c.classList.remove('flipped'));
+      card.classList.add('flipped');
+    });
+  });
+}
+
+// 在進入 highlights 段落時呼叫
+function initHighlightFlip() {
+  document.querySelectorAll('.flip-card').forEach(card => {
+    card.addEventListener('click', () => {
+      document.querySelectorAll('.flip-card').forEach(c => c.classList.remove('flipped'));
+      card.classList.add('flipped');
+    });
+  });
+}
+
+function initHighlightFlip() {
+  document.querySelectorAll('.flip-card').forEach(card => {
+    card.addEventListener('click', () => {
+      document.querySelectorAll('.flip-card').forEach(c => c.classList.remove('flipped'));
+      card.classList.add('flipped');
+    });
+  });
+}
+
+function showHighlights() {
+  document.getElementById('adventure').style.display = 'none';
+  const highlights = document.getElementById('highlights');
+  highlights.style.display = 'flex';
+  initHighlightFlip();
+}
+// 然後在冒險流程的 modal replyBtn 裡這樣寫：
+replyBtn.onclick = ()=>{
+  modal.style.display='none';
+  showHighlights();
+};
+// 段8→9：翻牌→蜥蜴人
+document.getElementById("highlights-next-btn").onclick = function(){
+  document.getElementById('highlights').style.display = 'none';
+  document.getElementById('alien-test').style.display = 'flex';
+};
+    // 段9：蜥蜴人驗證
+    (() => {
+      const choices = document.getElementById("alien-choices"),
+            result  = document.getElementById("alien-result"),
+            correct = "C";
+      function resetChoices() {
+        choices.style.display = "flex";
+        result.innerHTML = "";
+      }
+      function showEnding() {
+        document.getElementById("alien-test").style.display = "none";
+        document.getElementById("ending").style.display = "flex";
+        setTimeout(startParticles, 200);
+      }
+      choices.onclick = e => {
+        if (!e.target.matches("button")) return;
+        const ans = e.target.getAttribute("data-answer");
+        choices.style.display = "none";
+        if (ans === correct) {
+          result.innerHTML = `
+            <p>✅ 答對！聰明貓貓~</p>
+            <img src="https://media.giphy.com/media/XFvd6z0HqnwZhFb5en/giphy.gif">
+            <br>
+            <button class="reset-btn">試試其他選擇</button>
+            <button class="continue-btn">繼續</button>
+          `;
+        } else {
+          let msg = "", btn = "", gif = "https://media.giphy.com/media/y6lu312reRzVC46yFn/giphy.gif";
+          if (ans === "A") {
+            msg = "❌ 臭臭!!再猜一次~";
+            btn = `<button class="reset-btn">臭臭，再猜一次~</button>`;
+          } else if (ans === "B") {
+            msg = "❌ 呱呱!!齁齁你想瑟瑟喔，再猜一次？";
+            btn = `<button class="reset-btn">齁齁你想瑟瑟喔，再猜一次?</button>`;
+          } else if (ans === "D") {
+            msg = "❌ 啵啵彗星伺候!!!跟我啵啵10秒完再猜一次 <3";
+            btn = `<button class="reset-btn">罰你跟我啵啵完再猜一次 <3</button>`;
+          }
+          result.innerHTML = `<p>${msg}</p><img src="${gif}"><br>${btn}`;
+        }
+        result.querySelectorAll(".reset-btn").forEach(b => b.onclick = resetChoices);
+        result.querySelectorAll(".continue-btn").forEach(b => b.onclick = showEnding);
+      };
+    })();
+    
+    // 段10：結尾特效
+    function startParticles() {
+      const canvas = document.getElementById('particle-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let width, height;
+      function resize() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      }
+      window.removeEventListener('resize', resize);
+      window.addEventListener('resize', resize);
+      resize();
+      if (!window._particles) {
+        window._particles = Array.from({ length: 30 }, () => ({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          r: Math.random() * 3 + 2,
+          vx: (Math.random() - 0.5) * 0.5,
+          vy: (Math.random() - 0.5) * 0.5,
+          alpha: Math.random() * 0.5 + 0.3,
+          color: Math.random() < 0.5 ? 'rgba(212,175,55,' : 'rgba(192,192,192,',
+        }));
+      }
+      const particles = window._particles;
+      function draw() {
+        ctx.clearRect(0, 0, width, height);
+        particles.forEach(p => {
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.x < 0 || p.x > width) p.vx *= -1;
+          if (p.y < 0 || p.y > height) p.vy *= -1;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = p.color + p.alpha + ')';
+          ctx.shadowColor = p.color + '1)';
+          ctx.shadowBlur = 8;
+          ctx.fill();
+          ctx.closePath();
+        });
+        requestAnimationFrame(draw);
+      }
+      draw();
+    }
+    // ✅ 強制觸發房間段落初始化
+function jumpTo(id) {
+  const ids = [
+    'cover-check','intro','portrait','tinder','roomstory','bridge',
+    'adventure','highlights','alien-test','ending'
+  ];
+  ids.forEach(sec => {
+    const el = document.getElementById(sec);
+    if (el) el.style.display = 'none';
+  });
+  const target = document.getElementById(id);
+  if (target) {
+    if ([
+      'intro','bridge','highlights','roomstory','adventure','ending'
+    ].includes(id)) {
+      target.style.display = 'flex';
+    } else {
+      target.style.display = 'block';
+    }
+    // ✅ 加入段落初始化（如果是 roomstory）
+    if (id === 'roomstory') {
+      setupRoomStoryManualSwitching();
+    }
+    if (id === 'ending') setTimeout(startParticles, 200);
+  }
+}
+
+// ✅ 新增 reset 機制
+function resetToCover() {
+  console.log("resetToCover 被呼叫");
+    alert("重新開始旅程囉～");
+
+  // 顯示日期段落，隱藏其他段落
+  const ids = [
+    'intro','portrait','tinder','roomstory','bridge',
+    'adventure','highlights','alien-test','ending'
+  ];
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = 'none';
+  });
+  document.getElementById("cover-check").style.display = "block";
+
+  // ✅ 日期欄位清空
+  ["year", "month", "day"].forEach(id => {
+    const input = document.getElementById(id);
+    if (input) input.value = "";
+  });
+
+  // ✅ 打字動畫清空
+  for (let i = 1; i <= 5; i++) {
+    document.getElementById("line" + i).textContent = "";
+  }
+  document.getElementById("caret").style.display = "inline-block";
+  document.getElementById("next-intro-btn").style.display = "none";
+
+  // ✅ AKA 初始狀態
+  document.querySelectorAll(".aka").forEach(el => el.classList.remove("visible"));
+  document.getElementById("next-portrait-btn").style.display = "none";
+
+  // ✅ Tinder 重設
+  const card = document.getElementById("card");
+  const result = document.getElementById("swipe-result");
+  const nextBtn = document.getElementById("next-tinder-btn");
+  card.style.opacity = 1;
+  card.style.transform = "";
+  result.innerHTML = "";
+  result.classList.remove("visible");
+  nextBtn.style.display = "none";
+
+  const hintOverlay = document.querySelector(".swipe-hint-overlay");
+  if (hintOverlay) hintOverlay.style.display = "block";
+
+  // ✅ 房間段落重組
+  if (typeof setupRoomStoryManualSwitching === "function") {
+    setupRoomStoryManualSwitching();
+  }
+
+  // ✅ 小冒險段落初始化（強制重新 render）
+  if (typeof render === "function") {
+    render("start");
+  }
+
+  // ✅ 翻牌卡片重設
+  document.querySelectorAll('.flip-card').forEach(c => c.classList.remove('flipped'));
+  document.getElementById("highlights-next-btn").style.display = "inline-block";
+
+  // ✅ 蜥蜴人段落重設
+  document.getElementById("alien-choices").style.display = "flex";
+  document.getElementById("alien-result").innerHTML = "";
+
+  // ✅ 結尾畫面關閉粒子
+  document.getElementById("particle-canvas").getContext("2d").clearRect(0, 0, window.innerWidth, window.innerHeight);
+}
+
+document.getElementById("restart-btn").onclick = resetToCover;
+  });
+  
+</script>
+</body>
+</html>
